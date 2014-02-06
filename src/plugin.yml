@@ -1,0 +1,22 @@
+main: com.gabezter4.antispawncamping.SpawnCamping
+name: Spawn Camp Prevention
+version: 0.1.0
+
+commands:
+  scp:
+    description: Main Command
+    usage: /scp 
+    permission: scp
+    permission-message: You are not allowed to do this command.
+permission:	
+  scp.admin:
+    children:
+      scp.bypass: true
+      scp.add: true
+      scp.remove: true
+   scp.bypass:
+     description: Allows getting in to the Safe Regions when in combat.
+   scp.add:
+     description: The add command.
+   scp.remove:
+     description: The remove command.

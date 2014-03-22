@@ -46,7 +46,7 @@ public class SCM {
 	}
 
 	boolean notRunning() {
-		plugin.playerBooleanRun.remove(plugin.player.getName());
+		plugin.playerBooleanRun.remove(player.getName());
 		plugin.player.sendMessage(ChatColor.DARK_BLUE
 				+ "You are now out of Running Mode!!!");
 		plugin.player.sendMessage(ChatColor.DARK_BLUE + "PVP is now enabled for you.");
@@ -55,7 +55,7 @@ public class SCM {
 	}
 
 	boolean notCombat() {
-		plugin.playerBooleanCombat.remove(plugin.player.getName());
+		plugin.playerBooleanCombat.remove(player.getName());
 		plugin.player.sendMessage(ChatColor.DARK_GREEN
 				+ "You are now out of Combat!!!");
 		return true;

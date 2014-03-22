@@ -64,13 +64,15 @@ public class SCL implements Listener {
 	public void onPlayerMove(PlayerMoveEvent event) {
 		if (plugin.protectedBlocks.contains(event.getTo())
 				&& !plugin.protectedBlocks.contains(event.getFrom())) {
-			if (plugin.com) {
+			if (plugin.playerBooleanCombat
+					.contains(event.getPlayer().getName())) {
 				event.setCancelled(true);
 			}
 		} else if (!plugin.protectedBlocks.contains(event.getTo())
 				&& plugin.protectedBlocks.contains(event.getFrom())) {
-			if (plugin.preRun) {
-				plugin.playerBooleanRun.add(player.getName());
+			if (plugin.playerBooleanPreRun
+					.contains(event.getPlayer().getName())) {
+				plugin.playerBooleanRun.add(event.getPlayer().getName());
 				if (player != player1)
 					player.hidePlayer(player1);
 			}
@@ -93,7 +95,7 @@ public class SCL implements Listener {
 
 	@EventHandler
 	public void PVPPreventing(EntityDamageByEntityEvent e, PlayerMoveEvent event) {
-		if (plugin.run) {
+		if (plugin.playerBooleanRun.contains(event.getPlayer().getName())) {
 			if (e.getDamager() instanceof Player) {
 				if (e.getEntity() instanceof Player) {
 					e.setCancelled(true);
@@ -102,14 +104,16 @@ public class SCL implements Listener {
 		}
 		if (plugin.protectedBlocks.contains(event.getTo())
 				&& !plugin.protectedBlocks.contains(event.getFrom())) {
-			if (plugin.com) {
+			if (plugin.playerBooleanCombat
+					.contains(event.getPlayer().getName())) {
 				event.setCancelled(true);
 			}
 		} else if (!plugin.protectedBlocks.contains(event.getTo())
 				&& plugin.protectedBlocks.contains(event.getFrom())) {
-			if (plugin.preRun) {
-				plugin.playerBooleanRun.add(player.getName());
-				plugin.playerBooleanPreRun.remove(player.getName());
+			if (plugin.playerBooleanPreRun
+					.contains(event.getPlayer().getName())) {
+				plugin.playerBooleanRun.add(event.getPlayer().getName());
+				plugin.playerBooleanPreRun.remove(event.getPlayer().getName());
 			}
 		}
 		if (plugin.protectedBlocks.contains(player)) {
@@ -124,10 +128,10 @@ public class SCL implements Listener {
 
 	@EventHandler
 	public void PlayerRespawnEvent(PlayerRespawnEvent e) {
-		if (plugin.com) {
-			plugin.playerBooleanPreRun.add(player.getName());
-			plugin.playerBooleanCombat.remove(player.getName());
-			plugin.playerBooleanRun.remove(player.getName());
+		if (plugin.playerBooleanCombat.contains(e.getPlayer().getName())) {
+			plugin.playerBooleanPreRun.add(e.getPlayer().getName());
+			plugin.playerBooleanCombat.remove(e.getPlayer().getName());
+			plugin.playerBooleanRun.remove(e.getPlayer().getName());
 		}
 	}
 

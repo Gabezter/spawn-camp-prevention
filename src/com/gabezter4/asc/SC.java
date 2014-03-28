@@ -28,6 +28,8 @@ public class SC extends JavaPlugin {
 	public void onEnable() {
 		this.getConfig().addDefault("Regions", null);
 		this.saveDefaultConfig();
+
+		getServer().getPluginManager().registerEvents(sl, this);
 	}
 
 	@Override
@@ -121,11 +123,11 @@ public class SC extends JavaPlugin {
 		}
 		if (args[0].equalsIgnoreCase("tool")) {
 			PlayerInventory inv = player.getInventory();
-			ItemStack fire = new ItemStack(Material.FIRE, 1);
+			ItemStack fire = new ItemStack(Material.FIRE);
 			if (sender.hasPermission("scp.tool")) {
-				inv.setItem(inv.firstEmpty(), fire);
+				inv.addItem(fire);
 			} else if (sender.hasPermission("scp.admin"))
-				inv.setItem(inv.firstEmpty(), fire);
+				inv.addItem(fire);
 
 		}
 		return false;

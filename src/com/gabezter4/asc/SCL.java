@@ -53,11 +53,6 @@ public class SCL implements Listener {
 				plugin.m.sendConsole("Plugin Failed To Create WayPoint");
 			}
 		}
-		if (plugin.protectedBlocks.contains(event.getClickedBlock()
-				.getLocation())) {
-			event.setCancelled(true);
-		}
-
 	}
 
 	@EventHandler

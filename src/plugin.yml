@@ -22,4 +22,6 @@ permissions:
   scp.remove:
     description: Remove Command
     default: op
-    
+  scp.tool:
+    description: Tool Command
+    default: op

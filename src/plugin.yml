@@ -4,7 +4,7 @@ main: com.gabezter4.asc.SC
 commands:
   scp:
     description: Add and Remove command
-    usage: /scp [add, remove]
+    usage: /scp [add, remove, list, tool]
 permissions:
   scp.admin:
     description: All permissions

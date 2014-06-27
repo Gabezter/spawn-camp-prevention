@@ -61,8 +61,9 @@ public class SCL implements Listener {
 				&& !plugin.protectedBlocks.contains(event.getFrom())) {
 			if (plugin.playerBooleanCombat
 					.contains(event.getPlayer().getName())) {
+				if(!(event.getPlayer().hasPermission("scp.bypass"))){
 				event.setCancelled(true);
-			}
+			}}
 		} else if (!plugin.protectedBlocks.contains(event.getTo())
 				&& plugin.protectedBlocks.contains(event.getFrom())) {
 			if (plugin.playerBooleanPreRun

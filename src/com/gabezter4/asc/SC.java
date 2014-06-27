@@ -42,7 +42,6 @@ public class SC extends JavaPlugin {
 	public Location l1 = null;
 	public Location l2 = null;
 
-	Player player;
 
 	// Player Booleans
 	public Set<String> playerBooleanRun = new HashSet<String>();
@@ -56,13 +55,12 @@ public class SC extends JavaPlugin {
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label,
 			String[] args) {
-		Player player = (Player) sender;
 		if (cmd.getName().equalsIgnoreCase("scp")) {
 			if (args[0].equalsIgnoreCase("add")) {
 				if (sender.hasPermission("scp.add")) {
 					if (l1 != null) {
 						if (l2 != null) {
-							sr.protectArea(player, l1, l2);
+							sr.protectArea((Player) sender, l1, l2);
 							regions.add(args[1]);
 							this.getConfig().set("Regions", regions);
 							this.saveConfig();
@@ -83,7 +81,7 @@ public class SC extends JavaPlugin {
 				} else if (sender.hasPermission("scp.admin")) {
 					if (l1 != null) {
 						if (l2 != null) {
-							sr.protectArea(player, l1, l2);
+							sr.protectArea((Player)sender, l1, l2);
 							regions.add(args[1]);
 							this.getConfig().set("Regions", regions);
 							this.saveConfig();
@@ -122,17 +120,34 @@ public class SC extends JavaPlugin {
 			return true;
 		}
 		if (args[0].equalsIgnoreCase("tool")) {
-			PlayerInventory inv = player.getInventory();
+			PlayerInventory inv = ((Player) sender).getInventory();
 			ItemStack fire = new ItemStack(Material.FIRE);
 			if (sender.hasPermission("scp.tool")) {
 				inv.addItem(fire);
+				return true;
 			} else if (sender.hasPermission("scp.admin"))
 				inv.addItem(fire);
-
+			return true;
 		}
+		
+		if(args[0].equalsIgnoreCase(null)){
+			sender.sendMessage(ChatColor.WHITE + "Spawn Camp Prevention Help Page.");
+			sender.sendMessage(ChatColor.WHITE + "/scp tool   - Gives the tool to slect the region.");
+			sender.sendMessage(ChatColor.WHITE + "/scp add    - Adds the region.");
+			sender.sendMessage(ChatColor.WHITE + "/scp remove - Removes the region.");
+			sender.sendMessage(ChatColor.WHITE + "/scp list   - Lists the regions.");
+			sender.sendMessage(ChatColor.WHITE + "/scp        - Gives you this page!!!");
+			return true;
+		}
+		if(args[0].equalsIgnoreCase("list")){
+			sender.sendMessage(ChatColor.WHITE + this.getConfig().getString("Regions"));
+			return true;
+		}
+		
 		return false;
 	}
 
+	Player player;
 	public void run() {
 		if (playerBooleanCombat.contains(player.getName())) {
 			ct--;
